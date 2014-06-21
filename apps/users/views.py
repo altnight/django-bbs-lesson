@@ -15,14 +15,11 @@ def signup(request):
     if request.method == "POST":
         f = form.SignupForm(request.POST)
         if f.is_valid():
-            # rename form -> forms
-            # TODO: use manager
-            name = f.cleaned_data['name']
-            age = f.cleaned_data['age']
-            # TODO:
-            password = f.cleaned_data['password']
-            # TODO: kwargs?
-            user = Users.objects.create(name=name, age=age, password=password)
+            user = Users.objects.create_user(
+                    name=f.cleaned_data['name'],
+                    password=f.cleaned_data['password'],
+                    age=f.cleaned_data['age'],
+                   )
             request.session['user'] = user
             return HttpResponseRedirect(reverse('core:index'))
         else:
@@ -41,8 +38,10 @@ def login(request):
             d = f.cleaned_data
             # TODO: moveform validation?
             try:
-                u = Users.objects.get(name=d['name'], password=d['password'])
+                u = Users.objects.get(name=d['name'])
             except Users.DoesNotExist:
+                return HttpResponseRedirect(reverse('users:login'))
+            if not u.check_password(d['password']):
                 return HttpResponseRedirect(reverse('users:login'))
             request.session['user'] = u
             return HttpResponseRedirect(reverse('core:index'))
