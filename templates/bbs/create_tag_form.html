@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+create tag form
+threads:<br/>
+{% for thread in thread_list %}
+  id:{{ thread.id }}, name = {{ thread.name }}<br/>
+{% endfor %}
+<form action="" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="create">
+</form>
+
+{% endblock %}
