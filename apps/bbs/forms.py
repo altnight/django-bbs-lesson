@@ -3,9 +3,9 @@ from django import forms
 
 
 class ThreadCreateForm(forms.Form):
-    title = forms.CharField(max_length=100, min_length=1)
+    name = forms.CharField(max_length=100, min_length=1, required=True)
 
 
 class TagCreateForm(forms.Form):
-    name = forms.CharField(max_length=100, min_length=1)
-    thread_id = forms.CharField(max_length=100, min_length=1)
+    name = forms.CharField(max_length=100, min_length=1, required=True)
+    thread_id = forms.IntegerField(initial=1, required=True)

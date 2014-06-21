@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
-from core.models import BaseModel
+from core.models import (
+    BaseModel, BaseManager
+)
 
 
 class Thread(BaseModel):
     """
     Thread
     """
-    title = models.CharField(
+    name = models.CharField(
         max_length=200,
         help_text=u'thread title',
     )
