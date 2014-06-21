@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}signup{% endblock %}</title>
+{% block content %}
+
+<div class="panel panel-default">
+
+  {# form #}
+  <form action="{% url 'users:signup' %}" method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="submit">
+  </form>
+
+  {% if form.errors %}
+  <div id="form-error">
+    <p>The operation could not be performed because one or more error(s) occurred.<br />Please resubmit the form after making the following changes:</p>
+    <ul>
+    {% for field in form %}
+    <li>{{ field.errors|striptags }}</li>
+    {% endfor %}
+    </ul>
+    </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

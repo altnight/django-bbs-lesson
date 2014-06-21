@@ -1,0 +1,46 @@
+---
+
+
+- hosts: dev
+  user: vagrant
+  tasks:
+    - name: "install common packages"
+      action: apt pkg={{ item }} state=installed
+      tags: common
+      with_items:
+        - tmux
+        - ntp
+        - tree
+        - htop
+        - zsh
+      sudo: yes
+
+- hosts: dev
+  user: vagrant
+  vars_files:
+    - vars/settings.yml
+  tasks:
+    - name: "install dev packages"
+      action: apt pkg={{ item }} state=installed
+      tags: dev
+      with_items:
+        - git
+        - mercurial
+        - tig
+        - ctags
+        - nginx
+        - ntp
+        - sqlite3
+        - mysql-server
+        - python-mysqldb
+      sudo: yes
+
+    #
+    # MySQL database setup.
+    #
+    - name: MySQL | Configuration file, my.cnf
+      action: template src=templates/etc-mysql-my-cnf dest=/etc/mysql/my.cnf
+      tags: dev
+      sudo : yes
+
+    #- include: ./common-tasks/mysql-secure.yml

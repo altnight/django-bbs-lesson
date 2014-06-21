@@ -1,0 +1,8 @@
+*.pyc
+*.swp
+*.pyc
+.DS_Store
+.idea
+
+environments/.vagrant
+apps/db.sqlite3

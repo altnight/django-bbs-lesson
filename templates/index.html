@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}index{% endblock %}</title>
+{% block content %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">Panel test</div>
+  <div class="panel-body">
+    <p>...</p>
+  </div>
+
+  {# form #}
+  <form action="{% url 'users:login' %}" method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="submit">
+  </form>
+
+  {% if form.errors %}
+  <div id="form-error">
+    <p>The operation could not be performed because one or more error(s) occurred.<br />Please resubmit the form after making the following changes:</p>
+    <ul>
+    {% for field in form %}
+    <li>{{ field.errors|striptags }}</li>
+    {% endfor %}
+    </ul>
+    </div>
+  {% endif %}
+
+  <ul class="list-group">
+    <li class="list-group-item">panel1</li>
+    <li class="list-group-item">panel2</li>
+    <li class="list-group-item">panel3</li>
+    <li class="list-group-item">panel4</li>
+    <li class="list-group-item">panel5</li>
+  </ul>
+</div>
+
+{% endblock %}

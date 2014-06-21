@@ -1,0 +1,23 @@
+# django
+Django==1.6.4
+wsgiref==0.1.2
+
+# flake8
+flake8==2.1.0
+mccabe==0.2.1
+pep8==1.5.6
+pyflakes==0.8.1
+
+# debug toolbar
+django-debug-toolbar==1.2
+sqlparse==0.1.11
+
+# django devserver
+django-devserver==0.8.0
+
+# ansible
+ansible==1.5.5
+paramiko==1.13.0
+PyYAML==3.11
+pycrypto==2.6.1
+ecdsa==0.11
