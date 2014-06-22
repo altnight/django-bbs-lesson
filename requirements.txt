@@ -1,5 +1,5 @@
 # django
-Django==1.6.4
+Django==1.6.5
 wsgiref==0.1.2
 
 # flake8
