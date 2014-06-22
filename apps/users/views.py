@@ -11,7 +11,6 @@ from . import form
 
 @template_response('users/signup.html')
 def signup(request):
-    # TODO: template signup, name, password
     if request.method == "POST":
         f = form.SignupForm(request.POST)
         if f.is_valid():
@@ -46,8 +45,6 @@ def login(request):
             request.session['user'] = u
             return HttpResponseRedirect(reverse('core:index'))
         else:
-            # TODO:
-            #template_response('index.html')
             return HttpResponseRedirect(reverse('users:login'))
     f = form.LoginForm()
     return {'form': f}

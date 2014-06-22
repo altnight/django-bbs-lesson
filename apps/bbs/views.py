@@ -33,7 +33,6 @@ def create_thread(request):
             return HttpResponseRedirect(reverse('bbs:threads'))
 
     form = ThreadCreateForm()
-    #return HttpResponseRedirect(reverse('bbs:create_thread', kwargs={'form': form}))
     return {'form': form}
 
 
@@ -54,5 +53,3 @@ def create_tag(request):
         'form': form,
         'thread_list': thread_list,
     }
-    # TODO:
-    #return HttpResponseRedirect(reverse('bbs:create_tag', kwargs={'form': form}))
