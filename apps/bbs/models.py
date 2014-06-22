@@ -15,6 +15,10 @@ class Thread(BaseModel):
         help_text=u'thread title',
     )
 
+    @property
+    def tags(self):
+        return self.tag_set.be().all().order_by('-created_at')
+
     def __unicode__(self):
         return u"%s %s" % (self.pk, self.title)
 

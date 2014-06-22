@@ -7,7 +7,7 @@ thread list
 {% for thread in thread_list %}
   trhead: {{ thread.name }} : {{ thread.ctime|date:"Y/m/d H:i:s" }}<br/>
   tag:
-  {% for tag in thread.tag_set.all %}
+  {% for tag in thread.tags %}
     {{ tag.name }},
   {% endfor %}
   <br />

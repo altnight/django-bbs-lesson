@@ -16,7 +16,7 @@ from core.utils import template_response
 
 @template_response('bbs/threads.html')
 def threads(request):
-    thread_list = Thread.objects.be().all()
+    thread_list = Thread.objects.be().all().order_by('-created_at')
     return {
         'thread_list': thread_list,
     }
@@ -49,7 +49,7 @@ def create_tag(request):
             return HttpResponseRedirect(reverse('bbs:threads'))
 
     form = TagCreateForm()
-    thread_list = Thread.objects.be().all()
+    thread_list = Thread.objects.be().all().order_by('-created_at')
     return {
         'form': form,
         'thread_list': thread_list,
