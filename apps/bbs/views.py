@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
+from core.utils import template_response
 from .forms import (
     ThreadCreateForm,
     TagCreateForm,
@@ -11,14 +11,26 @@ from .models import (
     Thread,
     Tag,
 )
-from core.utils import template_response
 
 
 @template_response('bbs/threads.html')
 def threads(request):
-    thread_list = Thread.objects.be().all().order_by('-created_at')
+    thread_list = Thread.objects.be().order_by('-created_at')
     return {
         'thread_list': thread_list,
+    }
+
+
+@template_response('bbs/thread.html')
+def thread(request, id):
+    try:
+        thread = Thread.objects.be().get(id=id)
+    except Thread.DoesNotExist:
+        # TODO:
+        raise
+
+    return {
+        'thread': thread,
     }
 
 
@@ -48,7 +60,7 @@ def create_tag(request):
             return HttpResponseRedirect(reverse('bbs:threads'))
 
     form = TagCreateForm()
-    thread_list = Thread.objects.be().all().order_by('-created_at')
+    thread_list = Thread.objects.be().order_by('-created_at')
     return {
         'form': form,
         'thread_list': thread_list,

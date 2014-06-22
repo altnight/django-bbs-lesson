@@ -3,6 +3,7 @@ from django.conf.urls import patterns, url
 
 from bbs.views import (
     threads,
+    thread,
     create_thread,
     create_tag,
 )
@@ -15,6 +16,11 @@ urlpatterns = patterns(
         regex=r'^threads/?$',
         view=threads,
         name='threads',
+    ),
+    url(
+        regex=r'^thread/(?P<id>\d+)/?$',
+        view=thread,
+        name='thread',
     ),
     url(
         regex=r'^thread/create/?$',

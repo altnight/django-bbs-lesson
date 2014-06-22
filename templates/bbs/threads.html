@@ -5,13 +5,14 @@ thread list
 <a href="{% url "bbs:create_thread" %}">add thread </a><br/>
 <a href="{% url "bbs:create_tag" %}">add tag</a><br/>
 {% for thread in thread_list %}
-  trhead: {{ thread.name }} : {{ thread.ctime|date:"Y/m/d H:i:s" }}<br/>
+trhead: <a href="{{ thread.get_absolute_url }}">{{ thread.name }}</a>: {{ thread.created_at|date:"Y/m/d H:i:s" }}<br/>
   tag:
   {% for tag in thread.tags %}
     {{ tag.name }},
   {% endfor %}
   <br />
   <br />
+
 {% endfor %}
 
 {% endblock %}
