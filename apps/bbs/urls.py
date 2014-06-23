@@ -5,6 +5,7 @@ from bbs.views import (
     threads,
     thread,
     create_thread,
+    tag,
     create_tag,
 )
 
@@ -26,6 +27,11 @@ urlpatterns = patterns(
         regex=r'^thread/create/?$',
         view=create_thread,
         name='create_thread',
+    ),
+    url(
+        regex=r'^tag/(?P<id>\d+)/?$',
+        view=tag,
+        name='tag',
     ),
     url(
         regex=r'^tag/create/?$',

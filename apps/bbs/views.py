@@ -46,6 +46,22 @@ def create_thread(request):
     return {'form': form}
 
 
+@template_response('bbs/tag.html')
+def tag(request, id):
+    try:
+        tag = Tag.objects.be().get(id=id)
+    except Tag.DoesNotExist:
+        # TODO:
+        raise
+
+    thread_list = tag.thread.be().order_by('-created_at')
+    return {
+        'tag': tag,
+        'thread_list': thread_list,
+    }
+
+
+
 @template_response('bbs/create_tag_form.html')
 def create_tag(request):
     if request.method == "POST":
