@@ -5,11 +5,22 @@
 
 <div class="panel panel-default">
 
-  {# form #}
-  <form action="{% url 'users:signup' %}" method="POST">
-    {{ form.as_p }}
+  <form action="{% url 'users:signup' %}" method="POST" class="form-horizontal">
     {% csrf_token %}
-    <input type="submit" value="submit">
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+        {{ field.erros }}
+        <label for="" class="col-lg-2 control-label">{{ field.label_tag }}</label>
+        <div class="col-lg-10">{{ field }}</div>
+      </div>
+    {% endfor %}
+    <div class="form-group">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-10">
+      <button class="btn btn-default">Cancel</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </div>
   </form>
 
   {% if form.errors %}
