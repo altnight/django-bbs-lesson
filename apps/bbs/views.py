@@ -36,12 +36,10 @@ def thread(request, id):
 
 @template_response('bbs/create_thread_form.html')
 def create_thread(request):
-    # TODO:
     if request.method == "POST":
         form = ThreadCreateForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            Thread.objects.create(name=data['name'])
+            Thread.objects.create_thread(name=form.cleaned_data['name'])
             return HttpResponseRedirect(reverse('bbs:threads'))
 
     form = ThreadCreateForm()

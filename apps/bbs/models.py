@@ -6,6 +6,19 @@ from core.models import (
     BaseModel, BaseManager
 )
 
+class ThreadManager(BaseManager):
+
+    def create_thread(self, name):
+        """
+        create thread object
+        """
+        thread = self.model(
+            name=name,
+        )
+        thread.save()
+
+        return thread
+
 
 class Thread(BaseModel):
     """
@@ -15,6 +28,8 @@ class Thread(BaseModel):
         max_length=200,
         help_text=u'thread title',
     )
+
+    objects = ThreadManager()
 
     @property
     def tags(self):
