@@ -1,18 +1,38 @@
 {% extends 'base.html' %}
 
-{% block content %}
-thread list
-<a href="{% url "bbs:create_thread" %}">add thread </a><br/>
-<a href="{% url "bbs:create_tag" %}">add tag</a><br/>
+{% block thread_content %}
+
+<div class="row">
+<div class="col-lg-6">
+  <a href="{% url "bbs:create_thread" %}">add thread</a>
+  <a href="{% url "bbs:create_tag" %}">add tag</a>
+</div>
+<div class="col-lg-6"></div>
+</div>
+
 {% for thread in thread_list %}
-trhead: <a href="{{ thread.get_absolute_url }}">{{ thread.name }}</a>: {{ thread.created_at|date:"Y/m/d H:i:s" }}<br/>
+<div class="row">
+  <div class="col-lg-6">
+    <h2><a href="{{ thread.get_absolute_url }}">{{ thread.name }}</a>: </h2>
+  </div>
+  <div class="col-lg-2"></div>
+  <div class="col-lg-4"><h6>{{ thread.created_at|date:"Y/m/d H:i:s" }}</h6></div>
+</div>
+<div class="row">
+  <div class="col-lg-6"></div>
+  <div class="col-lg-6">
+  <p class="pull-right">
+  {% if thread.tags %}
   tag:
   {% for tag in thread.tags %}
-    {{ tag.name }},
+    {{ tag.name }}
   {% endfor %}
-  <br />
-  <br />
-
+  {% else %}
+    no tags
+  {% endif %}
+  </p>
+  </div>
+</div>
 {% endfor %}
 
 {% endblock %}
