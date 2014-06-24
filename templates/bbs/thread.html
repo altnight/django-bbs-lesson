@@ -4,45 +4,45 @@
 
 <div class="row">
   <div class="col-lg-6">
-    <h2><a href="{{ thread.get_absolute_url }}">{{ thread.name }}</a>: </h2>
+    <h2><a href="{{ thread.get_absolute_url }}">{{ thread.name }}</a></h2>
+    <h5>{{ thread.created_at|date:"Y/m/d H:i:s" }}</h6>
+    <span>
+    {% if thread.tags %}
+    tag:
+    {% for tag in thread.tags %}
+      {{ tag.name }}
+    {% endfor %}
+    {% else %}
+      no tags
+    {% endif %}
+    </span>
   </div>
-  <div class="col-lg-2"></div>
-  <div class="col-lg-4"><h6>{{ thread.created_at|date:"Y/m/d H:i:s" }}</h6></div>
-</div>
-
-<div class="row">
   <div class="col-lg-6"></div>
-  <div class="col-lg-6">
-  <p class="pull-right">
-  {% if thread.tags %}
-  tag:
-  {% for tag in thread.tags %}
-    {{ tag.name }}
-  {% endfor %}
-  {% else %}
-    no tags
-  {% endif %}
-  </p>
-  </div>
 </div>
 
 <div class="row">
   <div class="col-lg-4">
-  <p class="pull-right">
-
   {% if thread.comments %}
   {% for comment in thread.comments %}
-  <p>
+  <p class="comment">
+    {{ comment.id }}: {{ comment.created_at|date:"Y/m/d H:i:s" }}
     {{ comment.body|linebreaks }}
   </p>
   {% endfor %}
   {% else %}
     no comments
   {% endif %}
-
-  </p>
   </div>
   <div class="col-lg-8"></div>
 </div>
 
+{% endblock %}
+
+{% block sidebar %}
+no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content
+no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content
+no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content
+no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content
+no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content
+no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content no content
 {% endblock %}

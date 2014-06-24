@@ -1,0 +1,13 @@
+#outer {
+  width: 800px;
+}
+
+.content {
+  background-color: #dfdfdf;
+}
+
+.comment {
+  margin: 20px 0px;
+}
+
+.sidebar {}
