@@ -4,5 +4,6 @@
 .DS_Store
 .idea
 
+Gemfile.lock
 environments/.vagrant
 apps/db.sqlite3
