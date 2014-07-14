@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import hashlib
-
 from django import forms
 from django.forms.util import ErrorList
 
@@ -20,7 +18,7 @@ class SignupForm(forms.Form):
     age = forms.IntegerField(
         initial=0)
     password = forms.CharField(
-        min_length=8, max_length=100)
+        min_length=8, max_length=100, widget=forms.PasswordInput)
     password_confirm = forms.CharField(
         min_length=8, max_length=100, widget=forms.PasswordInput)
 

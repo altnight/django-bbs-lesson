@@ -2,15 +2,11 @@
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from core.utils import template_response
-from .forms import (
-    ThreadCreateForm,
-    TagCreateForm,
-)
-from .models import (
-    Thread,
-    Tag,
-)
+from core.utils import template_response, get_user
+from core.errors import ServerException
+
+from .forms import ThreadCreateForm, TagCreateForm, CommentAddForm
+from .models import Thread, Tag, Comment
 
 
 @template_response('bbs/threads.html')
@@ -23,14 +19,28 @@ def threads(request):
 
 @template_response('bbs/thread.html')
 def thread(request, id):
+    """
+    thread detail view
+    """
+    user = get_user(request)
+    import debug
     try:
         thread = Thread.objects.be().get(id=id)
     except Thread.DoesNotExist:
-        # TODO:
-        raise
+        raise ServerException("thread not found")
+
+    if request.method == "POST" and user:
+        form = CommentAddForm(request.POST)
+        if form.is_valid():
+            Comment.objects.create_comment(user, thread, form.cleaned_data['body'])
+            return HttpResponseRedirect(reverse("bbs:thread", args=(id, )))
+
+    # GET
+    form = CommentAddForm(request.GET)
 
     return {
         'thread': thread,
+        'form': form,
     }
 
 
@@ -59,7 +69,6 @@ def tag(request, id):
         'tag': tag,
         'thread_list': thread_list,
     }
-
 
 
 @template_response('bbs/create_tag_form.html')

@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from core.utils import template_response
-from users.models import Users
+from users.models import User
 from . import form
 
 
@@ -14,7 +14,7 @@ def signup(request):
     if request.method == "POST":
         f = form.SignupForm(request.POST)
         if f.is_valid():
-            user = Users.objects.create_user(
+            user = User.objects.create_user(
                     name=f.cleaned_data['name'],
                     password=f.cleaned_data['password'],
                     age=f.cleaned_data['age'],
@@ -37,8 +37,8 @@ def login(request):
             d = f.cleaned_data
             # TODO: moveform validation?
             try:
-                u = Users.objects.get(name=d['name'])
-            except Users.DoesNotExist:
+                u = User.objects.get(name=d['name'])
+            except User.DoesNotExist:
                 return HttpResponseRedirect(reverse('users:login'))
             if not u.check_password(d['password']):
                 return HttpResponseRedirect(reverse('users:login'))

@@ -25,6 +25,7 @@
   {% if thread.comments %}
   {% for comment in thread.comments %}
   <p class="comment">
+  {% if comment.user %} {{ comment.user.name }} {% else %} anony {% endif %}
     {{ comment.id }}: {{ comment.created_at|date:"Y/m/d H:i:s" }}
     {{ comment.body|linebreaks }}
   </p>
@@ -34,6 +35,20 @@
   {% endif %}
   </div>
   <div class="col-lg-8"></div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+    {% if current_user %}
+    <form action="{% url 'bbs:thread' thread.id %}" method="POST" class="form-horizontal">
+      {% csrf_token %}
+      {{ form.as_ul }}
+      <button type="submit" class="btn btn-primary">submit</button>
+    </form>
+    {% else %}
+    if you want to add comment, please login.
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}

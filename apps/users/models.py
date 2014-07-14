@@ -34,7 +34,7 @@ class UserManager(BaseManager, BaseUserManager):
         return user
 
 
-class Users(BaseModel, AbstractBaseUser):
+class User(BaseModel, AbstractBaseUser):
     """
     App User
     """

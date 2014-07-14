@@ -15,3 +15,9 @@ def template_response(template=None):
             )
         return wrapper
     return render
+
+
+def get_user(request):
+    # TODO: user.is_exists?
+    user = request.session.get('user', None)
+    return user

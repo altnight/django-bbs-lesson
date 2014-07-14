@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse
 from core.models import (
     BaseModel, BaseManager
 )
+from users.models import User
+
 
 class ThreadManager(BaseManager):
 
@@ -51,15 +53,34 @@ class Thread(BaseModel):
         ordering = ['-id']
 
 
+class CommentManager(BaseManager):
+
+    def create_comment(self, user, thread, body):
+        """
+        create comment object
+        """
+        comment = self.model(
+            thread=thread,
+            user=user,
+            body=body,
+        )
+        comment.save()
+
+        return comment
+
+
 class Comment(BaseModel):
     """
     thread comment
     """
     thread = models.ForeignKey(Thread)
+    user = models.ForeignKey(User)
     body = models.CharField(
         max_length=255,
         help_text=u'message body',
     )
+
+    objects = CommentManager()
 
     def __unicode__(self):
         return u"%s %s" % (self.pk, self.body)
